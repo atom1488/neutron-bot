@@ -9,7 +9,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author":"Polo",
+  "authors":[
+    "atomkern",
+     "Polo"
+  ],
   "license": "MIT",
   "description": "Neutron bot the best bot ever !!!"
 }
