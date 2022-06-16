@@ -14,10 +14,10 @@ export default new Command({
         .addFields(
            {name: 'Owner', value:'atomkern#9988', inline: true},
            {name: 'Version', value:`${version}`, inline: true},
-           {name: '\u200b', value:'\u200b'},
+           {name: '\u200b', value:'\u200b', inline: true},
            {name: 'Guilds', value:`${client.guilds.cache.size}`, inline: true},
-           {name: 'Total Users', value:`${client.guilds.cache.map((guild) => guild.memberCount)}`, inline: true},
-           {name: '\u200b', value:'\u200b'},
+           {name: 'Total Users', value:`${client.users.cache.size}`, inline: true},
+           {name: '\u200b', value:'\u200b', inline: true},
            {name: 'Uptime', value:`${timeCurrent.hours()} hours ` + `${timeCurrent.minutes()} minutes ` + `${timeCurrent.seconds()} seconds`, inline:true},
            {name: 'Langage', value:'TypeScript', inline:true},
            {name: 'Invite Bot', value:'https://discord.com/oauth2/authorize?client_id=986815196376989756&permissions=8&scope=applications.commands%20bot'} // Mettre un link raccourcis comme https://neutronbot.jsp/invite et aussi mettre le lien du site
