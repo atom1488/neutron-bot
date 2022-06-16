@@ -17,13 +17,30 @@ export class ExtendedClient extends Client {
     commands: Collection<string, CommandType> = new Collection();
 
     constructor() {
-        super({ intents: 32767 });
+        super({ intents: [
+        'GUILDS',
+        'GUILD_VOICE_STATES',
+        'GUILD_MESSAGES',
+        'GUILD_BANS',
+        'GUILD_INVITES',
+        'GUILD_MEMBERS',
+        'GUILD_INTEGRATIONS',
+        ], 
+        partials: [
+            'USER', 
+            'CHANNEL', 
+            'GUILD_MEMBER', 
+            'MESSAGE', 
+            'REACTION',
+        ],
+        });
     }
 
     start() {
         this.registerModules();
         this.login(process.env.botToken);
     }
+
     async importFile(filePath: string) {
         return (await import(filePath))?.default;
     }
