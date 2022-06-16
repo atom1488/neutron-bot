@@ -1,18 +1,30 @@
 {
   "dependencies": {
-    "discord.js": "^13.8.0"
+    "discord.js": "^13.8.0",
+    "dotenv": "^16.0.1",
+    "glob": "^8.0.3"
   },
   "name": "neutronbot",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start":"ts-node src/index.ts",
+    "start:dev":"ts-node-dev src/index.ts",
+    "start:prod":"node dist/index.js",
+    "build":"tsc",
+    "watch":"tsc -w"
   },
-  "authors":[
+  "authors": [
     "atomkern",
-     "Polo"
+    "Polo"
   ],
   "license": "MIT",
-  "description": "Neutron bot the best bot ever !!!"
+  "description": "Neutron bot the best bot ever !!!",
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/node": "^18.0.0",
+    "ts-node": "^10.8.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.7.3"
+  }
 }
