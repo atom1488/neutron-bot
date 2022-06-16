@@ -21,7 +21,6 @@ export class ExtendedClient extends Client {
     }
 
     start() {
-        console.log("Bot is starting...");
         this.registerModules();
         this.login(process.env.botToken);
     }
@@ -45,12 +44,10 @@ export class ExtendedClient extends Client {
         const commandFiles = await globPromise(
             (__dirname + "\\..\\commands\\**\\*.{ts,js}").replace(/\\/g,'/')
         );
-        console.log(commandFiles)
         commandFiles.forEach(async (filePath) => {
             const command: CommandType = await this.importFile(filePath);
-            console.log(command)
             if (!command.name) return;
-            console.log(command);
+            console.log(`${command.name} loaded.`);
 
             this.commands.set(command.name, command);
             slashCommands.push(command);
