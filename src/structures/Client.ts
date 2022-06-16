@@ -42,10 +42,8 @@ export class ExtendedClient extends Client {
     async registerModules() {
         // Commands
         const slashCommands: ApplicationCommandDataResolvable[] = [];
-        const directory = path.join(__dirname, '../commands/info');
-        console.log(directory)                                              //ICI BORDEL ERREUR ARRAY VIDE ALORS QU'IL DOIT RETURN LES PATHS POUR LES .TS FILES
         const commandFiles = await globPromise(
-            `${directory}/*{.ts,.js}`
+            (__dirname + "\\..\\commands\\**\\*.{ts,js}").replace(/\\/g,'/')
         );
         console.log(commandFiles)
         commandFiles.forEach(async (filePath) => {
@@ -67,7 +65,7 @@ export class ExtendedClient extends Client {
 
         // Event
         const eventFiles = await globPromise(
-            `${process.cwd()}/../events/*{.ts,.js}`
+            (__dirname + "\\..\\events\\*.{ts,js}").replace(/\\/g,'/')
         );
         eventFiles.forEach(async (filePath) => {
             const event: Event<keyof ClientEvents> = await this.importFile(
