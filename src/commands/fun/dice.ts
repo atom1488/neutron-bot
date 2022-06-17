@@ -1,5 +1,5 @@
 import { Command } from '../../structures/Command';
-import { MessageEmbed, User } from 'discord.js'
+import { MessageEmbed } from 'discord.js'
 
 export default new Command({
     name: 'dice',
