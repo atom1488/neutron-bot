@@ -1,5 +1,5 @@
 import {Channel} from "diagnostics_channel";
-import {BaseGuildTextChannel, ButtonInteraction, Collector, GuildChannel, GuildTextBasedChannel, InteractionCollector, Message, MessageActionRow, MessageButton, MessageComponentInteraction, MessageComponentOptions, TextBasedChannel, TextChannel, User} from "discord.js";
+import {BaseGuildTextChannel, ButtonInteraction, InteractionCollector, Message, MessageActionRow, MessageButton, MessageComponentInteraction} from "discord.js";
 import { Command } from "../../structures/Command";
 import {ExtendedInteraction} from "../../typings/Command";
 
