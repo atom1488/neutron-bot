@@ -1,6 +1,5 @@
 import { Command } from '../../structures/Command';
 import { MessageEmbed, User } from 'discord.js'
-import {SlashCommandBuilder} from '@discordjs/builders';
 
 export default new Command({
     name: 'avatar',
