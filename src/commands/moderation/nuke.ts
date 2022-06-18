@@ -1,4 +1,3 @@
-import {Channel} from "diagnostics_channel";
 import {BaseGuildTextChannel, ButtonInteraction, InteractionCollector, Message, MessageActionRow, MessageButton, MessageComponentInteraction} from "discord.js";
 import { Command } from "../../structures/Command";
 import {ExtendedInteraction} from "../../typings/Command";
@@ -6,13 +5,11 @@ import {ExtendedInteraction} from "../../typings/Command";
 export default new Command({
     name: 'nuke',
     description: 'delete the channel and clone it',
+    userPermissions: ['MANAGE_CHANNELS'],
     run: async ({ interaction }) => {
 
         if (!interaction.guild.me.permissions.has('ADMINISTRATOR'))
-            return interaction.followUp({ content: `Je n'ai pas la permission \`ADMINISTRATOR\` permission.` });
-
-        if (!interaction.member.permissions.has('MANAGE_CHANNELS'))
-            return interaction.followUp({ content: `You don't have \`MANAGE_CHANNELS\` permission.` });
+            return interaction.followUp({ content: `I don't have \`ADMINISTRATOR\` permission.` });
 
         const row: MessageActionRow = new MessageActionRow().addComponents(
             new MessageButton()
