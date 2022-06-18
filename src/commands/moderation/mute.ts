@@ -5,6 +5,7 @@ import { ExtendedInteraction } from "../../typings/Command";
 export default new Command({
     name: 'mute',
     description: 'mute a user',
+    userPermissions: ['MODERATE_MEMBERS'],
     options: [{
         name: 'target',
         type: 'USER',
@@ -35,8 +36,6 @@ export default new Command({
         if(!interaction.guild.me.permissions.has('ADMINISTRATOR'))
             return interaction.followUp({ content: `Je n'ai pas la permission \`ADMINISTRATOR\` permission.` });
 
-            if(!interaction.member.permissions.has('MANAGE_MESSAGES'))
-                return interaction.followUp({ content: `You don't have \`MANAGE_MESSAGES\` permission.` });
                 
                 if(interaction.member.roles.highest.rawPosition >= interaction.guild.me.roles.highest.rawPosition) {
                     return interaction.followUp({ content: `The user you are trying to mute is superior to the bot` });
