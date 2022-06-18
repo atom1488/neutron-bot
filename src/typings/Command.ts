@@ -8,13 +8,8 @@ import {
 import { ExtendedClient } from "../structures/Client";
 
 /**
- * {
- *  name: "commandname",
- * description: "any description",
- * run: async({ interaction }) => {
- *
- * }
- * }
+ * { name: "commandname", description: "any description",
+ * run: async({ interaction }) => {} }
  */
 export interface ExtendedInteraction extends CommandInteraction {
     member: GuildMember;
