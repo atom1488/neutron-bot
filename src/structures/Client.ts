@@ -9,11 +9,16 @@ import glob from "glob";
 import { promisify } from "util";
 import { RegisterCommandsOptions } from "../typings/client";
 import { Event } from "./Event";
+import {Player, PlayerEvents} from "discord-music-player";
+import { ExtendedEvents } from './Event';
 
 const globPromise = promisify(glob);
 
 export class ExtendedClient extends Client {
   commands: Collection<string, CommandType> = new Collection();
+  player: Player = new Player(this, {
+      deafenOnJoin: true,
+  });
 
   constructor() {
     super({
@@ -80,8 +85,8 @@ export class ExtendedClient extends Client {
       (__dirname + "\\..\\events\\*.{ts,js}").replace(/\\/g, "/")
     );
     eventFiles.forEach(async (filePath) => {
-      const event: Event<keyof ClientEvents> = await this.importFile(filePath);
-      this.on(event.event, event.run);
+      const event: Event<keyof ExtendedEvents> = await this.importFile(filePath);
+      this.on(event.event as string, event.run);
     });
   }
 }
