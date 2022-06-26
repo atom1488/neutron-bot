@@ -42,6 +42,6 @@ export default new Command({
             .setDescription(`:musical_note: [${song.name}](${song.url}) - \`${song.duration}\` has beed added! [${song.requestedBy}]`)
             .setThumbnail(song.thumbnail);
 
-        queue.data.followUp({ embeds : [embed] });
+        interaction.followUp({ embeds : [embed] });
     }
 });
