@@ -1,7 +1,6 @@
 import {
   ApplicationCommandDataResolvable,
   Client,
-  ClientEvents,
   Collection,
 } from "discord.js";
 import { CommandType } from "../typings/Command";
@@ -9,7 +8,7 @@ import glob from "glob";
 import { promisify } from "util";
 import { RegisterCommandsOptions } from "../typings/client";
 import { Event } from "./Event";
-import {Player, PlayerEvents} from "discord-music-player";
+import {Player} from "discord-music-player";
 import { ExtendedEvents } from './Event';
 
 const globPromise = promisify(glob);
@@ -67,9 +66,9 @@ export class ExtendedClient extends Client {
         }
       );
       if (!command.name) return;
-      console.log(`☑️   ${command.name} loaded.`);
+      console.log(`☑️  ${command.name} loaded.`);
 
-      this.commands.set(command.name, command);
+      this.commands.set(command.name.toLowerCase(), command);
       slashCommands.push(command);
     });
 
@@ -80,7 +79,7 @@ export class ExtendedClient extends Client {
       });
     });
 
-    // Event
+    // Events
     const eventFiles = await globPromise(
       (__dirname + "\\..\\events\\*.{ts,js}").replace(/\\/g, "/")
     );
