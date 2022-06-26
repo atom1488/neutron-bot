@@ -17,6 +17,7 @@ export class ExtendedClient extends Client {
   commands: Collection<string, CommandType> = new Collection();
   player: Player = new Player(this, {
       deafenOnJoin: true,
+      leaveOnStop: false,
   });
 
   constructor() {
