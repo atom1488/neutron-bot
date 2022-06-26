@@ -4,17 +4,17 @@ Bot Discord fait avec discord.js v13 et TypeScript avec un dashboard.
 
 Liste des catégories du bot:
 
-* owner
+* owner (bientot)
 * utils
 * info
-* music (bientot)
+* music 👍
 * nsfw (bientot)
-* moderation (bientot)
-* fun (bientot)
+* moderation
+* fun
 
 **à faire:**
 
-- [ ] Catégorie music, ajout d'un systeme de musique
+- [x] Catégorie music, ajout d'un systeme de musique
 - [ ] Catégorie nsfw
 - [ ] Catégorie moderation
 - [ ] Catégorie fun
