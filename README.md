@@ -15,7 +15,7 @@ Liste des catégories du bot:
 **à faire:**
 
 - [x] Catégorie music, ajout d'un systeme de musique
-- [ ] Catégorie nsfw
+- [x] Catégorie nsfw
 - [ ] Catégorie moderation
 - [ ] Catégorie fun
 - [ ] Ajouter des commandes de niveaux (/top, /rank)
