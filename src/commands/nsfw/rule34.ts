@@ -17,7 +17,7 @@ var tag: string = interaction.options.getString('tag');
 axios.get(`https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&limit=1000&tags=${tag}&json=1`, { headers: { "Content-Type":"application/json" } })
 .then(res => {
     const random = Math.floor(Math.random() * 1000)
-    const file_url:  string = res.data[3].file_url
+    const file_url:  string = res.data[random].file_url
     const embed = new MessageEmbed()
     .setTitle(`Rule34 : **${tag}**`)
     .setImage(file_url)
