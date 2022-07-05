@@ -26,7 +26,7 @@ export function createApp(): Express {
                 maxAge: 604800000
             },
             store: store.create({
-                mongoUrl: `mongodb+srv://neutronbot:${process.env.mongoDbPass}@neutron.5cl8zjm.mongodb.net/?retryWrites=true&w=majority`
+                mongoUrl: process.env.mongoDbURI as string
             })
         })
     );
