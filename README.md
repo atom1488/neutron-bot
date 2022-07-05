@@ -8,7 +8,7 @@ Liste des catégories du bot:
 - utils
 - info
 - music 👍
-- nsfw (bientot)
+- nsfw
 - moderation
 - fun
 
