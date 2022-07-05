@@ -1,5 +1,5 @@
-import { Command } from '../../structures/Command'
-import { MessageEmbed } from 'discord.js'
+import { Command } from '../../structures/Command';
+import { MessageEmbed } from 'discord.js';
 
 export default new Command({
   name: 'dice',
@@ -13,15 +13,15 @@ export default new Command({
     },
   ],
   run: async ({ interaction }) => {
-    const value: number = interaction.options.getNumber('value') || 100
+    const value: number = interaction.options.getNumber('value') || 100;
 
-    const randomNumber: number = Math.floor(Math.random() * value)
+    const randomNumber: number = Math.floor(Math.random() * value);
 
     const diceEmbed: MessageEmbed = new MessageEmbed()
       .setColor('#ee6f71')
       .setTitle('Dice')
-      .setDescription(`:game_die: **${randomNumber}**`)
+      .setDescription(`:game_die: **${randomNumber}**`);
 
-    interaction.followUp({ embeds: [diceEmbed] })
+    interaction.followUp({ embeds: [diceEmbed] });
   },
-})
+});

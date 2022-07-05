@@ -1,6 +1,6 @@
-import { ProgressBar, Queue, Song } from 'discord-music-player'
-import { MessageEmbed } from 'discord.js'
-import { Command } from '../../structures/Command'
+import { ProgressBar, Queue, Song } from 'discord-music-player';
+import { MessageEmbed } from 'discord.js';
+import { Command } from '../../structures/Command';
 
 export default new Command({
   name: 'queue',
@@ -10,24 +10,24 @@ export default new Command({
       return interaction.followUp({
         ephemeral: true,
         content: 'You need to be in a voice channel to perform this command.',
-      })
+      });
 
     if (interaction.guild.me.voice.channel) {
       if (interaction.guild.me.voice.channelId != interaction.member.voice.channelId)
-        return interaction.followUp({ ephemeral: true, content: `The bot is in an other voice channel.` })
+        return interaction.followUp({ ephemeral: true, content: `The bot is in an other voice channel.` });
     }
 
-    const queue: Queue = client.player.getQueue(interaction.guildId)
+    const queue: Queue = client.player.getQueue(interaction.guildId);
 
     if (!queue || !queue.isPlaying)
-      return interaction.followUp({ ephemeral: true, content: `There is no music playing right now` })
+      return interaction.followUp({ ephemeral: true, content: `There is no music playing right now` });
 
-    const currentTrack: Song = queue.songs[0]
+    const currentTrack: Song = queue.songs[0];
     const songs: string[] = queue.songs.slice(0, 10).map((m, i) => {
-      return `${i + 1}. [${m.name}](${m.url})`
-    })
+      return `${i + 1}. [${m.name}](${m.url})`;
+    });
 
-    const timeCodes: ProgressBar = queue.createProgressBar()
+    const timeCodes: ProgressBar = queue.createProgressBar();
 
     const embed: MessageEmbed = new MessageEmbed()
       .setTitle(`Queue`)
@@ -46,8 +46,8 @@ export default new Command({
       .addFields({
         name: 'Now Playing',
         value: `🎶[${currentTrack.name}](${currentTrack.url}) \`${timeCodes.times}\``,
-      })
+      });
 
-    interaction.followUp({ embeds: [embed] })
+    interaction.followUp({ embeds: [embed] });
   },
-})
+});

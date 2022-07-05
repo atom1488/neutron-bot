@@ -1,9 +1,9 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose, { Schema } from 'mongoose';
 
 interface User {
-  discordId: string
-  accessToken: string
-  refreshToken: string
+  discordId: string;
+  accessToken: string;
+  refreshToken: string;
 }
 
 const UserSchema = new Schema<User>({
@@ -20,6 +20,6 @@ const UserSchema = new Schema<User>({
     type: mongoose.SchemaTypes.String,
     required: true,
   },
-})
+});
 
-export default mongoose.model('users', UserSchema)
+export default mongoose.model('users', UserSchema);

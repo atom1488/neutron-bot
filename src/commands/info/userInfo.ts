@@ -1,6 +1,6 @@
-import { Command } from '../../structures/Command'
-import { GuildMember, MessageEmbed } from 'discord.js'
-import moment, { Moment } from 'moment'
+import { Command } from '../../structures/Command';
+import { GuildMember, MessageEmbed } from 'discord.js';
+import moment, { Moment } from 'moment';
 export default new Command({
   name: 'userinfo',
   description: 'Replies user information.',
@@ -14,14 +14,14 @@ export default new Command({
   ],
   run: async ({ interaction }) => {
     const member: GuildMember =
-      (interaction.options.getMember('target') as GuildMember) || (interaction.member as GuildMember)
-    const TimeFull: Moment = moment(member.user.createdAt)
-    const TimeFullAt: Moment = moment(member.joinedAt)
+      (interaction.options.getMember('target') as GuildMember) || (interaction.member as GuildMember);
+    const TimeFull: Moment = moment(member.user.createdAt);
+    const TimeFullAt: Moment = moment(member.joinedAt);
     const profilePicture: string = member.user.displayAvatarURL({
       dynamic: true,
       size: 2048,
       format: 'png',
-    })
+    });
     const UserEmbed: MessageEmbed = new MessageEmbed()
       .setAuthor({
         name: member.user.username,
@@ -59,7 +59,7 @@ export default new Command({
           )}:R>)`,
           inline: false,
         }
-      )
-    interaction.followUp({ embeds: [UserEmbed] })
+      );
+    interaction.followUp({ embeds: [UserEmbed] });
   },
-})
+});

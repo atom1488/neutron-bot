@@ -1,10 +1,10 @@
-import { Router } from 'express'
-import authRouter from './auth'
-import guildsRouter from './guilds'
+import { Router } from 'express';
+import authRouter from './auth';
+import guildsRouter from './guilds';
 
-const router = Router()
+const router = Router();
 
-router.use('/auth', authRouter)
-router.use('/guilds', guildsRouter)
+router.use('/auth', authRouter);
+router.use('/guilds', guildsRouter);
 
-export default router
+export default router;

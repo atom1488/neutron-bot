@@ -1,5 +1,5 @@
-import { Command } from '../../structures/Command'
-import { MessageEmbed, User } from 'discord.js'
+import { Command } from '../../structures/Command';
+import { MessageEmbed, User } from 'discord.js';
 
 export default new Command({
   name: 'avatar',
@@ -13,15 +13,15 @@ export default new Command({
     },
   ],
   run: async ({ interaction }) => {
-    const user: User = interaction.options.getUser('target') || interaction.user
+    const user: User = interaction.options.getUser('target') || interaction.user;
 
-    const profilePicture: string = user.displayAvatarURL({ dynamic: true, size: 2048, format: 'png' })
+    const profilePicture: string = user.displayAvatarURL({ dynamic: true, size: 2048, format: 'png' });
 
     const avatarEmbed: MessageEmbed = new MessageEmbed()
       .setDescription(`:bust_in_silhouette: [Avatar of **${user.username}**](${profilePicture})`)
       .setColor('#ee6f71')
-      .setImage(profilePicture)
+      .setImage(profilePicture);
 
-    interaction.followUp({ embeds: [avatarEmbed] })
+    interaction.followUp({ embeds: [avatarEmbed] });
   },
-})
+});

@@ -1,15 +1,15 @@
-import { Command } from '../../structures/Command'
-import { MessageEmbed } from 'discord.js'
-import moment, { Moment } from 'moment'
-import { client } from '../..'
+import { Command } from '../../structures/Command';
+import { MessageEmbed } from 'discord.js';
+import moment, { Moment } from 'moment';
+import { client } from '../..';
 
 export default new Command({
   name: 'serverinfo',
   description: 'Replies with server information.',
   run: async ({ interaction }) => {
     try {
-      const TimeUnix: number = Math.round(interaction.guild.createdTimestamp / 1000)
-      const TimeFull: Moment = moment(interaction.guild.createdAt)
+      const TimeUnix: number = Math.round(interaction.guild.createdTimestamp / 1000);
+      const TimeFull: Moment = moment(interaction.guild.createdAt);
 
       const ServerInfo: MessageEmbed = new MessageEmbed()
         .setColor('#ee6f71')
@@ -48,17 +48,17 @@ export default new Command({
             name: 'Created at',
             value: `${TimeFull.format('dddd, MMMM Do YYYY, h:mm:ss a')} (<t:${TimeUnix}:R>) `,
           }
-        )
+        );
 
       if (interaction.guild.iconURL() != null) {
         ServerInfo.setThumbnail(
           `${interaction.guild.iconURL({ dynamic: true, size: 1024 })}` || `${client.user.displayAvatarURL()}`
-        )
+        );
       }
 
-      interaction.followUp({ embeds: [ServerInfo] })
+      interaction.followUp({ embeds: [ServerInfo] });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   },
-})
+});
