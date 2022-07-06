@@ -5,17 +5,28 @@ import { PartialGuild } from '../../utils/types';
 
 export function getBotGuildsService() {
   const TOKEN = process.env.botToken;
-  return axios.get<PartialGuild[]>(`${DISCORD_API_URL}/users/@me/guilds`, {
-    headers: { Authorization: `Bot ${TOKEN}` },
-  });
+
+  return axios
+    .get<PartialGuild[]>(`${DISCORD_API_URL}/users/@me/guilds`, {
+      headers: { Authorization: `Bot ${TOKEN}` },
+    })
+    .catch((err) => {
+      console.error(err);
+      throw new Error('Cannot fetch bot guilds');
+    });
 }
 
 export async function getUserGuildsService(id: string) {
   const user = await User.findById(id);
   if (!user) throw new Error('No user found');
-  return axios.get<PartialGuild[]>(`${DISCORD_API_URL}/users/@me/guilds`, {
-    headers: { Authorization: `Bearer ${user.accessToken}` },
-  });
+  return axios
+    .get<PartialGuild[]>(`${DISCORD_API_URL}/users/@me/guilds`, {
+      headers: { Authorization: `Bearer ${user.accessToken}` },
+    })
+    .catch((err) => {
+      console.error(err);
+      throw new Error('Cannot fetch user guilds');
+    });
 }
 
 export async function getMutualGuildsService(id: string) {
