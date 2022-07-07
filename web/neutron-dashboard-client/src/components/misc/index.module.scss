@@ -23,6 +23,7 @@
   align-items: center;
   & > * {
     margin: 50px 0 50px;
+    cursor: pointer;
   }
 }
 
@@ -45,6 +46,7 @@
 .menu {
   display: flex;
   align-items: center;
+  cursor: pointer;
   :last-child {
     margin-left: 24px;
   }
