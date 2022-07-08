@@ -1,5 +1,5 @@
 import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
-import { fetchValidGuild } from '../utils/api';
+import { fetchValidGuild } from './utils/api';
 
 const validateMiddlewareCookies = (req: NextRequest) => {
   const sessionID = req.cookies.get('connect-sid');
@@ -11,8 +11,7 @@ const validateMiddlewareCookies = (req: NextRequest) => {
 };
 
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
-  console.log(req.nextUrl.pathname);
-  if (req.nextUrl.pathname.startsWith('/dashboard')) {
+ /* if (req.nextUrl.pathname.startsWith('/dashboard')) {
     const headers = validateMiddlewareCookies(req);
     if (!headers) return NextResponse.redirect('/');
 
@@ -25,7 +24,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
     console.log(response.status);
 
     return response.status === 200 ? NextResponse.next() : NextResponse.redirect('/');
-  }
+  } */
 }
 
 export const config = {
