@@ -4,6 +4,7 @@ const nextConfig = {
   images: {
     domains: ['cdn.discordapp.com'],
   },
+  nextRuntime: 'nodejs',
 };
 
 module.exports = nextConfig;

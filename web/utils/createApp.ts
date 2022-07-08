@@ -36,7 +36,7 @@ export function createApp(): Express {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.use((_req, _res, next) => setTimeout(() => next(), 900));
+  app.use((_req, _res, next) => setTimeout(() => next(), 1000));
 
   app.use('/api', routes);
   return app;
