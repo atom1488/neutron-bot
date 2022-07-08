@@ -32,7 +32,7 @@ export default new Command({
     if (!interaction.guild.me.permissions.has('ADMINISTRATOR'))
       return interaction.followUp({ content: `I don't have \`ADMINISTRATOR\` permission.` });
 
-    if (interaction.member.roles.highest.rawPosition >= interaction.guild.me.roles.highest.rawPosition) {
+    if (memberAya.roles.highest.rawPosition >= interaction.guild.me.roles.highest.rawPosition) {
       return interaction.followUp({ content: `The user you are trying to kick is superior to the bot` });
     }
     if (interaction.member.roles.highest.rawPosition <= memberAya.roles.highest.rawPosition) {

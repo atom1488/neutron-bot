@@ -31,7 +31,7 @@ export default new Command({
     const reason: string = interaction.options.getString('reason') || 'No reason given';
     if (!interaction.guild.me.permissions.has('ADMINISTRATOR'))
       return interaction.followUp({ content: `I don't have \`ADMINISTRATOR\` permission.` });
-    if (interaction.member.roles.highest.rawPosition >= interaction.guild.me.roles.highest.rawPosition) {
+    if (memberAya.roles.highest.rawPosition >= interaction.guild.me.roles.highest.rawPosition) {
       return interaction.followUp({ content: `The user you are trying to ban is superior to the bot` });
     }
     if (interaction.member.roles.highest.rawPosition <= memberAya.roles.highest.rawPosition) {
@@ -52,7 +52,7 @@ export default new Command({
       if (button.customId === 'banYes') {
         button.deferUpdate();
         if (button.user.id !== interaction.user.id) return;
-        memberAya.ban(reason).catch(() => {});
+        memberAya.ban({ reason }).catch(() => {});
         banInteraction.deleteReply().catch(() => {});
         banInteraction.followUp({
           content: `${memberAya.user.tag} has been banned by ${interaction.member.user.username}`,
