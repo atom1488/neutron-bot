@@ -20,8 +20,8 @@ passport.deserializeUser(async (id: string, done) => {
 passport.use(
   new Strategy(
     {
-      clientID: process.env.clientID as string,
-      clientSecret: process.env.clientSecret as string,
+      clientID: process.env.clientId!,
+      clientSecret: process.env.clientSecret!,
       callbackURL: process.env.callbackURL,
       scope: ['identify', 'email', 'guilds'],
     },
