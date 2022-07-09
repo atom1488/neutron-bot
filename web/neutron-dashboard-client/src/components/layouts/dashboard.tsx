@@ -1,14 +1,16 @@
-import { ReactElement } from 'react';
+import { ReactElement, useContext } from 'react';
 import { Sidebar } from '../misc/Sidebar';
-import styles from '../misc/index.module.scss';
+import styles from '../../utils/styles/layout.module.scss';
 import { Appbar } from '../misc/Appbar';
+import { GuildContext } from '../../utils/contexts/GuildContext';
 
 export function DashboardLayout({ children }: { children: ReactElement }) {
+  const { guild } = useContext(GuildContext);
   return (
     <>
-      <Sidebar />
+      <Sidebar guild={guild} />
       <div className={styles.layout}>
-        <Appbar />
+        <Appbar guild={guild} />
         <>{children}</>
       </div>
     </>

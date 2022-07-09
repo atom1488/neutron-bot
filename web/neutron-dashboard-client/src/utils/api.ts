@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from 'next';
 import axios from 'axios';
 import { validateCookies } from './helpers';
-import { Guild } from './types';
+import { FullGuild, Guild } from './types';
 
 const API_URL = 'http://localhost:3001/api';
 
@@ -23,4 +23,19 @@ export const fetchValidGuild = async (id: string, headers: HeadersInit) => {
   return await fetch(`${API_URL}/guilds/${id}/permissions`, {
     headers,
   });
+};
+
+export const fetchGuild = async (ctx: GetServerSidePropsContext) => {
+  const headers = validateCookies(ctx);
+  if (!headers) return { redirect: { destination: '/' } };
+
+  try {
+    const { data: guild } = await axios.get<FullGuild>(`${API_URL}/guilds/${ctx.query.id}`, {
+      headers,
+    });
+    return { props: { guild } };
+  } catch (err) {
+    console.error(err);
+    return { redirect: { destination: '/' } };
+  }
 };

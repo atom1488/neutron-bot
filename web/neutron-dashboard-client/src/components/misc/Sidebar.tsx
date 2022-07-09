@@ -3,8 +3,11 @@ import { MdSpaceDashboard } from 'react-icons/md';
 import { BsTerminal } from 'react-icons/bs';
 import { FaWrench } from 'react-icons/fa';
 import { RiLogoutCircleLine } from 'react-icons/ri';
-import styles from './index.module.scss';
+import styles from '../../utils/styles/sidebar.module.scss';
 import { useRouter } from 'next/router';
+import { FullGuild } from '../../utils/types';
+import { FC } from 'react';
+import { getIcon } from '../../utils/helpers';
 
 const routes = [
   {
@@ -24,18 +27,15 @@ const routes = [
   },
 ];
 
-export const Sidebar = () => {
+type Props = {
+  guild?: FullGuild;
+};
+
+export const Sidebar: FC<Props> = ({ guild }) => {
   const router = useRouter();
   return (
     <div className={styles.sidebar}>
-      <Image
-        className={styles.avatar}
-        //src={`https://cdn.discordapp.com/icons/${router.query?.id!.toString()}/${router.query?.icon!}}`}
-        src={`/botavatar.png`}
-        height={80}
-        width={80}
-        alt="guild_avatar"
-      />
+      <Image className={styles.avatar} src={getIcon(guild)} height={80} width={80} alt="guild_avatar" />
       <div className={styles.icons}>
         {routes.map((route) => (
           <div key={route.name} onClick={() => router.push(route.getPath(router.query?.id!.toString()))}>

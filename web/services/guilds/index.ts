@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { User } from '../../database/schemas/';
 import { DISCORD_API_URL } from '../../utils/constants';
-import { PartialGuild } from '../../utils/types';
+import { Guild, PartialGuild } from '../../utils/types';
 
 export function getBotGuildsService() {
   const TOKEN = process.env.botToken;
@@ -36,4 +36,13 @@ export async function getMutualGuildsService(id: string) {
   const adminUserGuilds = userGuilds.filter(({ permissions }) => (parseInt(permissions) & 0x8) === 0x8);
 
   return adminUserGuilds.filter((guild) => botGuilds.some((botGuild) => botGuild.id === guild.id));
+}
+
+export function getGuildService(id: string) {
+  const TOKEN = process.env.botToken;
+  return axios.get<Guild>(`${DISCORD_API_URL}/guilds/${id}`, {
+    headers: {
+      Authorization: `Bot ${TOKEN}`,
+    },
+  });
 }
