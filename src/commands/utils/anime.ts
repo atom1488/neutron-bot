@@ -37,13 +37,14 @@ export default new Command({
       return interaction.followUp({ content: 'Anime name need to be at least 3 characters', ephemeral: true });
 
     const info = await JIKAN.search('anime', query);
-    const animeQuery: animeQuery = info.results[0];
+    if (info === undefined) return interaction.followUp({ content: 'An error has occured.' });
 
+    const animeQuery: animeQuery = info.results[0];
     if (animeQuery.start_date != null) {
-      animeQuery.start_date = animeQuery.start_date.replace('T00:00:00+00:00', '')
+      animeQuery.start_date = animeQuery.start_date.replace('T00:00:00+00:00', '');
     }
     if (animeQuery.end_date != null) {
-      animeQuery.end_date = animeQuery.end_date.replace('T00:00:00+00:00', '')
+      animeQuery.end_date = animeQuery.end_date.replace('T00:00:00+00:00', '');
     }
 
     const embed = new MessageEmbed()

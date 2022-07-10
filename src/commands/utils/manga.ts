@@ -36,7 +36,11 @@ export default new Command({
     if (query.length < 3)
       return interaction.followUp({ content: 'Anime name need to be at least 3 characters', ephemeral: true });
 
-    const info = await JIKAN.search('manga', query);
+    const info = await JIKAN.search('manga', query).catch((err) => {
+      console.error(err);
+    });
+
+    if (info === undefined) return interaction.followUp({ content: 'An error has occured.' });
     const mangaQuery: mangaQuery = info.results[0];
 
     if (mangaQuery.start_date != null) {
