@@ -1,4 +1,4 @@
-import { ApplicationCommandDataResolvable, Client, Collection } from 'discord.js';
+import { ApplicationCommandDataResolvable, Client, Collection, GatewayIntentBits, IntentsBitField, Partials } from 'discord.js';
 import { CommandType } from '../typings/Command';
 import glob from 'glob';
 import { promisify } from 'util';
@@ -19,15 +19,15 @@ export class ExtendedClient extends Client {
   constructor() {
     super({
       intents: [
-        'GUILDS',
-        'GUILD_VOICE_STATES',
-        'GUILD_MESSAGES',
-        'GUILD_BANS',
-        'GUILD_INVITES',
-        'GUILD_MEMBERS',
-        'GUILD_INTEGRATIONS',
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildBans,
+        GatewayIntentBits.GuildInvites,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildIntegrations,
       ],
-      partials: ['USER', 'CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION'],
+      partials: [Partials.User, Partials.Channel, Partials.GuildMember, Partials.Message, Partials.Reaction],
     });
   }
 

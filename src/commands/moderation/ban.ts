@@ -1,34 +1,35 @@
 import {
+  ApplicationCommandOptionType,
   ButtonInteraction,
+  CollectedInteraction,
   GuildMember,
   InteractionCollector,
   MessageActionRow,
   MessageButton,
-  MessageComponentInteraction,
 } from 'discord.js';
 import { Command } from '../../structures/Command';
 import { ExtendedInteraction } from '../../typings/Command';
 export default new Command({
   name: 'ban',
   description: 'Ban a user',
-  userPermissions: ['BAN_MEMBERS'],
+  userPermissions: ['BanMembers'],
   options: [
     {
       name: 'target',
-      type: 'USER',
+      type: ApplicationCommandOptionType.User,
       description: 'User to ban',
       required: true,
     },
     {
       name: 'reason',
-      type: 'STRING',
+      type: ApplicationCommandOptionType.String,
       description: 'Reason for the ban',
       required: false,
     },
   ],
   run: async ({ interaction }) => {
     const memberAya: GuildMember = interaction.options.getMember('target') as GuildMember;
-    const reason: string = interaction.options.getString('reason') || 'No reason given';
+    const reason = interaction.options.get('reason', false) || 'No reason given';
     if (!interaction.guild.me.permissions.has('ADMINISTRATOR'))
       return interaction.followUp({ content: `I don't have \`ADMINISTRATOR\` permission.` });
     if (memberAya.roles.highest.rawPosition >= interaction.guild.me.roles.highest.rawPosition) {
@@ -46,7 +47,7 @@ export default new Command({
     setTimeout(() => {
       banInteraction.deleteReply().catch(() => {});
     }, 10000);
-    const collector: InteractionCollector<MessageComponentInteraction> =
+    const collector: InteractionCollector<CollectedInteraction> =
       banInteraction.channel.createMessageComponentCollector({ time: 10000 });
     collector.on('collect', async (button: ButtonInteraction) => {
       if (button.customId === 'banYes') {
