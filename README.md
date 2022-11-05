@@ -1,4 +1,4 @@
-# nukleon-bot
+# neutron-bot
 
 Bot Discord fait avec discord.js v13 et TypeScript avec un dashboard.
 
