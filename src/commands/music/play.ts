@@ -1,5 +1,5 @@
 import { Command } from '../../structures/Command';
-import { MessageEmbed } from 'discord.js';
+import { ApplicationCommandOptionType, EmbedBuilder } from 'discord.js';
 import { Queue, Song } from 'discord-music-player';
 
 export default new Command({
@@ -8,7 +8,7 @@ export default new Command({
   options: [
     {
       name: 'query',
-      type: 'STRING',
+      type: ApplicationCommandOptionType.String,
       description: 'The song you want to play',
       required: true,
     },
@@ -20,8 +20,8 @@ export default new Command({
         content: `You need to be in a voice channel to use this command.`,
       });
 
-    if (interaction.guild.me.voice.channel) {
-      if (interaction.guild.me.voice.channelId != interaction.member.voice.channelId)
+    if (interaction.guild.members.me.voice.channel) {
+      if (interaction.guild.members.me.voice.channelId != interaction.member.voice.channelId)
         return interaction.followUp({
           ephemeral: true,
           content: `You are not in the same voice channel as the bot.`,
@@ -53,8 +53,8 @@ export default new Command({
         ephemeral: true,
       });
 
-    const embed: MessageEmbed = new MessageEmbed()
-      .setColor('RED')
+    const embed = new EmbedBuilder()
+      .setColor('Red')
       .setTitle(':notes: Song Added')
       .setDescription(
         `:musical_note: [${song.name}](${song.url}) - \`${song.duration}\` has beed added! [${song.requestedBy}]`

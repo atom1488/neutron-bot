@@ -1,11 +1,12 @@
 import {
+  ActionRowBuilder,
   ApplicationCommandOptionType,
+  ButtonBuilder,
   ButtonInteraction,
   CollectedInteraction,
+  EmbedBuilder,
   GuildMember,
   InteractionCollector,
-  MessageActionRow,
-  MessageButton,
 } from 'discord.js';
 import { Command } from '../../structures/Command';
 import { ExtendedInteraction } from '../../typings/Command';
@@ -29,26 +30,28 @@ export default new Command({
   ],
   run: async ({ interaction }) => {
     const memberAya: GuildMember = interaction.options.getMember('target') as GuildMember;
-    const reason = interaction.options.get('reason', false) || 'No reason given';
-    if (!interaction.guild.me.permissions.has('ADMINISTRATOR'))
-      return interaction.followUp({ content: `I don't have \`ADMINISTRATOR\` permission.` });
-    if (memberAya.roles.highest.rawPosition >= interaction.guild.me.roles.highest.rawPosition) {
+    const reason = interaction.options.getString('reason', false) || 'No reason given';
+    if (!interaction.guild.members.me.permissions.has('Administrator'))
+      return interaction.followUp({ content: `I don't have \`Administrator\` permission.` });
+    if (memberAya.roles.highest.rawPosition >= interaction.guild.members.me.roles.highest.rawPosition) {
       return interaction.followUp({ content: `The user you are trying to ban is superior to the bot` });
     }
     if (interaction.member.roles.highest.rawPosition <= memberAya.roles.highest.rawPosition) {
       return interaction.followUp({ content: `You can't ban someone with a role higher than yours.` });
     }
-    const row: MessageActionRow = new MessageActionRow().addComponents(
-      new MessageButton().setCustomId('banYes').setLabel('Yes').setStyle('SUCCESS'),
-      new MessageButton().setCustomId('banNo').setLabel('No').setStyle('DANGER')
+    const row = new ActionRowBuilder().addComponents(
+      new ButtonBuilder().setCustomId('banYes').setLabel('Yes').setStyle(3),
+      new ButtonBuilder().setCustomId('banNo').setLabel('No').setStyle(4)
     );
     const banInteraction: ExtendedInteraction = interaction;
-    banInteraction.followUp({ content: `Are you sure you want to ban ${memberAya.user.tag}?`, components: [row] });
+    banInteraction.followUp({
+      content: `Are you sure you want to ban ${memberAya.user.tag}?`,
+      components: [row as any],
+    });
     setTimeout(() => {
       banInteraction.deleteReply().catch(() => {});
     }, 10000);
-    const collector: InteractionCollector<CollectedInteraction> =
-      banInteraction.channel.createMessageComponentCollector({ time: 10000 });
+    const collector = banInteraction.channel.createMessageComponentCollector({ time: 10000 });
     collector.on('collect', async (button: ButtonInteraction) => {
       if (button.customId === 'banYes') {
         button.deferUpdate();

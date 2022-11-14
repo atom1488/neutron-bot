@@ -1,5 +1,5 @@
 import { Command } from '../../structures/Command';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import { ProgressBar, Queue, Song } from 'discord-music-player';
 
 export default new Command({
@@ -25,9 +25,9 @@ export default new Command({
 
     const song: Song = queue.songs[0];
 
-    const embed: MessageEmbed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setTitle(':notes: Now Playing')
-      .setColor('RED')
+      .setColor('Red')
       .setDescription(
         `:musical_note: [${song.name}](${song.url}) - \`${song.duration}\` - Added by ${song.requestedBy}`
       )

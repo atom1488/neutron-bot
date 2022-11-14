@@ -11,8 +11,8 @@ export default new Command({
         content: 'You need to be in a voice channel to perform this command.',
       });
 
-    if (interaction.guild.me.voice.channel) {
-      if (interaction.guild.me.voice.channelId != interaction.member.voice.channelId)
+    if (interaction.guild.members.me.voice.channel) {
+      if (interaction.guild.members.me.voice.channelId != interaction.member.voice.channelId)
         return interaction.followUp({ ephemeral: true, content: `The bot is in an other voice channel.` });
     }
 

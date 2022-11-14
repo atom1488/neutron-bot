@@ -1,39 +1,29 @@
-import {
-  BaseGuildTextChannel,
-  ButtonInteraction,
-  InteractionCollector,
-  Message,
-  MessageActionRow,
-  MessageButton,
-  MessageComponentInteraction,
-} from 'discord.js';
+import { ActionRowBuilder, BaseGuildTextChannel, ButtonBuilder, ButtonInteraction, Message } from 'discord.js';
 import { Command } from '../../structures/Command';
-import { ExtendedInteraction } from '../../typings/Command';
 
 export default new Command({
   name: 'nuke',
   description: 'delete the channel and clone it',
-  userPermissions: ['MANAGE_CHANNELS'],
+  userPermissions: ['ManageChannels'],
   run: async ({ interaction }) => {
-    if (!interaction.guild.me.permissions.has('ADMINISTRATOR'))
-      return interaction.followUp({ content: `I don't have \`ADMINISTRATOR\` permission.` });
+    if (!interaction.guild.members.me.permissions.has('Administrator'))
+      return interaction.followUp({ content: `I don't have \`Administrator\` permission.` });
 
-    const row: MessageActionRow = new MessageActionRow().addComponents(
-      new MessageButton().setCustomId('nukeYes').setLabel('Yes').setStyle('SUCCESS'),
+    const row = new ActionRowBuilder().addComponents(
+      new ButtonBuilder().setCustomId('nukeYes').setLabel('Yes').setStyle(3),
 
-      new MessageButton().setCustomId('nukeNo').setLabel('No').setStyle('DANGER')
+      new ButtonBuilder().setCustomId('nukeNo').setLabel('No').setStyle(4)
     );
 
-    const nukeInteraction: ExtendedInteraction = interaction;
+    const nukeInteraction = interaction;
 
-    nukeInteraction.followUp({ content: `:warning: Are you sure you want to nuke ?`, components: [row] });
+    nukeInteraction.followUp({ content: `:warning: Are you sure you want to nuke ?`, components: [row as any] });
 
     setTimeout(() => {
       nukeInteraction.deleteReply().catch(() => {});
     }, 10000);
 
-    const collector: InteractionCollector<MessageComponentInteraction> =
-      nukeInteraction.channel.createMessageComponentCollector({ time: 10000 });
+    const collector = nukeInteraction.channel.createMessageComponentCollector({ time: 10000 });
 
     collector.on('collect', async (button: ButtonInteraction) => {
       if (button.customId === 'nukeYes') {

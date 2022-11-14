@@ -1,4 +1,4 @@
-import { TextChannel, MessageEmbed } from 'discord.js';
+import { TextChannel, EmbedBuilder } from 'discord.js';
 import { Command } from '../../structures/Command';
 import axios from 'axios';
 export default new Command({
@@ -10,7 +10,7 @@ export default new Command({
       axios
         .get(`https://nekobot.xyz/api/image?type=4k`)
         .then((res) => {
-          const embed = new MessageEmbed().setTitle('4k   ').setImage(res.data.message).setColor('RANDOM');
+          const embed = new EmbedBuilder().setTitle('4k   ').setImage(res.data.message).setColor('Random');
           interaction.followUp({ embeds: [embed] });
         })
         .catch((err) => {

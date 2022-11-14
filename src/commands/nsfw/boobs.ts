@@ -1,16 +1,16 @@
-import { TextChannel, MessageEmbed } from 'discord.js';
+import { TextChannel, EmbedBuilder } from 'discord.js';
 import { Command } from '../../structures/Command';
 const axios: any = require('axios');
 export default new Command({
   name: 'boobs',
   description: 'Shows boobs pictures',
-  run: async ({ interaction, client }) => {
+  run: async ({ interaction }) => {
     const currentChannel = interaction.channel as TextChannel;
     if (currentChannel.nsfw) {
       axios
         .get(`https://nekobot.xyz/api/image?type=boobs`)
         .then((res) => {
-          const embed = new MessageEmbed().setTitle('boobs').setImage(res.data.message).setColor('RANDOM');
+          const embed = new EmbedBuilder().setTitle('boobs').setImage(res.data.message).setColor('Random');
           interaction.followUp({ embeds: [embed] });
         })
         .catch((err) => {

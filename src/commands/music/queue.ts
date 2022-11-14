@@ -1,5 +1,5 @@
 import { ProgressBar, Queue, Song } from 'discord-music-player';
-import { MessageEmbed } from 'discord.js';
+import { Embed, EmbedBuilder } from 'discord.js';
 import { Command } from '../../structures/Command';
 
 export default new Command({
@@ -12,8 +12,8 @@ export default new Command({
         content: 'You need to be in a voice channel to perform this command.',
       });
 
-    if (interaction.guild.me.voice.channel) {
-      if (interaction.guild.me.voice.channelId != interaction.member.voice.channelId)
+    if (interaction.guild.members.me.voice.channel) {
+      if (interaction.guild.members.me.voice.channelId != interaction.member.voice.channelId)
         return interaction.followUp({ ephemeral: true, content: `The bot is in an other voice channel.` });
     }
 
@@ -29,7 +29,7 @@ export default new Command({
 
     const timeCodes: ProgressBar = queue.createProgressBar();
 
-    const embed: MessageEmbed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setTitle(`Queue`)
       .setDescription(
         `${songs.join('\n')}${
@@ -42,7 +42,7 @@ export default new Command({
             : ''
         }`
       )
-      .setColor('DARK_VIVID_PINK')
+      .setColor('DarkVividPink')
       .addFields({
         name: 'Now Playing',
         value: `🎶[${currentTrack.name}](${currentTrack.url}) \`${timeCodes.times}\``,

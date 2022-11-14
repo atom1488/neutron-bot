@@ -1,4 +1,4 @@
-import { TextChannel, MessageEmbed } from 'discord.js';
+import { TextChannel, EmbedBuilder, ApplicationCommandOptionType } from 'discord.js';
 import got from 'got';
 import { Command } from '../../structures/Command';
 
@@ -10,10 +10,10 @@ export default new Command({
       name: 'tag',
       description: 'The tag to search',
       required: true,
-      type: 'STRING',
+      type: ApplicationCommandOptionType.String,
     },
   ],
-  run: async ({ interaction, client }) => {
+  run: async ({ interaction }) => {
     const currentChannel = interaction.channel as TextChannel;
 
     if (!currentChannel.nsfw)
@@ -44,10 +44,10 @@ export default new Command({
           return interaction.followUp({ content: 'Sorry, some of the tags are not allowed' });
       }
 
-      const embed = new MessageEmbed()
-        .setTitle(`Gelbooru : **${tag.replace(/(\+)/g, ' ')}**`)
+      const embed = new EmbedBuilder()
+        .setTitle(`Gelbooru : **$·{tag.replace(/(\+)/g, ' ')}**`)
         .setImage(fileUrl)
-        .setColor('RANDOM');
+        .setColor('Random');
       interaction.followUp({ embeds: [embed] });
     } catch (err) {
       interaction.followUp({ content: 'An error has occured' });

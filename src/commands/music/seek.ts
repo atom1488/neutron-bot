@@ -1,4 +1,5 @@
 import { Queue } from 'discord-music-player';
+import { ApplicationCommandOptionType } from 'discord.js';
 import { Command } from '../../structures/Command';
 
 export default new Command({
@@ -8,7 +9,7 @@ export default new Command({
     {
       name: 'value',
       description: 'time (in seconds)',
-      type: 'NUMBER',
+      type: ApplicationCommandOptionType.Number,
       required: true,
     },
   ],
@@ -19,8 +20,8 @@ export default new Command({
         content: 'You need to be in a voice channel to perform this command.',
       });
 
-    if (interaction.guild.me.voice.channel) {
-      if (interaction.guild.me.voice.channelId != interaction.member.voice.channelId)
+    if (interaction.guild.members.me.voice.channel) {
+      if (interaction.guild.members.me.voice.channelId != interaction.member.voice.channelId)
         return interaction.followUp({ ephemeral: true, content: `The bot is in an other voice channel.` });
     }
 

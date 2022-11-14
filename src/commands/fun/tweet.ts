@@ -1,6 +1,6 @@
 import { Command } from '../../structures/Command';
-import { User } from 'discord.js';
-import axios from 'axios';
+import { ApplicationCommandOptionType } from 'discord.js';
+import axios, { AxiosResponse } from 'axios';
 
 export default new Command({
   name: 'tweet',
@@ -8,37 +8,34 @@ export default new Command({
   options: [
     {
       name: 'text',
-      type: 'STRING',
+      type: ApplicationCommandOptionType.String,
       description: 'Text on the tweet',
       required: true,
     },
   ],
   run: async ({ interaction }) => {
-    if (!interaction.guild.me.permissions.has('ATTACH_FILES'))
-      return interaction.followUp({ content: "I don't have the `ATTACH_FILES` permission." });
+    if (!interaction.guild.members.me.permissions.has('AttachFiles'))
+      return interaction.followUp({ content: "I don't have the `AttachFiles` permission." });
 
-    const user: User = interaction.user;
+    const user = interaction.user;
 
     const input_text = interaction.options.getString('text', true);
-    axios
+
+    const res = await axios
       .get(`https://nekobot.xyz/api/imagegen?type=tweet&username=${user.username}&text=${input_text}`, {
         headers: {
           'Content-Type': 'application/json',
         },
       })
-      .then((res) => {
-        interaction.followUp({
-          files: [
-            {
-              attachment: res.data.message,
-              name: 'tweet.png',
-            },
-          ],
-        });
-      })
-      .catch((err) => {
-        console.error(err);
-        return interaction.followUp({ content: 'An Error has occured.' });
-      });
+      .catch((e) => interaction.followUp({ content: e.message }));
+
+    interaction.followUp({
+      files: [
+        {
+          attachment: (res as AxiosResponse<any, any>).data.message,
+          name: 'tweet.png',
+        },
+      ],
+    });
   },
 });

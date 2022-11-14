@@ -1,6 +1,6 @@
 import { Command } from '../../structures/Command';
 import axios from 'axios';
-import { MessageEmbed, TextChannel } from 'discord.js';
+import { ApplicationCommandOptionType, EmbedBuilder, TextChannel } from 'discord.js';
 
 export default new Command({
   name: 'rule34',
@@ -10,7 +10,7 @@ export default new Command({
       name: 'tag',
       description: 'The tag to search',
       required: true,
-      type: 'STRING',
+      type: ApplicationCommandOptionType.String,
     },
   ],
   run: async ({ interaction }) => {
@@ -29,10 +29,10 @@ export default new Command({
         const objectSize = Object.keys(res.data).length;
         const random = Math.floor(Math.random() * (objectSize - 1));
         const file_url: string = res.data[random].file_url;
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
           .setDescription(`[rule34 : **${tag.replace('+', ' ')}**](${file_url})`)
           .setImage(file_url)
-          .setColor('RANDOM');
+          .setColor('Random');
         interaction.followUp({ embeds: [embed] });
       })
       .catch((err) => {

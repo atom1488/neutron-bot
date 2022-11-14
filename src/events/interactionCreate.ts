@@ -1,4 +1,4 @@
-import { CommandInteractionOptionResolver, PermissionResolvable, Permissions } from 'discord.js';
+import { CommandInteractionOptionResolver, PermissionResolvable, Permissions, PermissionsBitField } from 'discord.js';
 import { client } from '..';
 import { Event } from '../structures/Event';
 import { ExtendedInteraction } from '../typings/Command';
@@ -14,7 +14,7 @@ export default new Event('interactionCreate', async (interaction) => {
       var neededPermissions: PermissionResolvable[] = [];
 
       command.userPermissions.forEach((perm) => {
-        const memberPermission: Readonly<Permissions> = interaction.member.permissions as Permissions;
+        const memberPermission = interaction.member.permissions as Readonly<PermissionsBitField>;
         if (!memberPermission.has(perm)) {
           neededPermissions.push(perm);
         }

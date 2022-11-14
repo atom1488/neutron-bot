@@ -1,6 +1,6 @@
 import {
   ChatInputApplicationCommandData,
-  CommandInteraction,
+  ChatInputCommandInteraction,
   CommandInteractionOptionResolver,
   GuildMember,
   PermissionResolvable,
@@ -11,7 +11,7 @@ import { ExtendedClient } from '../structures/Client';
  * { name: "commandname", description: "any description",
  * run: async({ interaction }) => {} }
  */
-export interface ExtendedInteraction extends CommandInteraction {
+export interface ExtendedInteraction extends ChatInputCommandInteraction {
   member: GuildMember;
 }
 

@@ -1,5 +1,5 @@
 import { Command } from '../../structures/Command';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import moment, { Duration, Moment } from 'moment';
 import { version, authors } from '../../../package.json';
 export default new Command({
@@ -8,9 +8,9 @@ export default new Command({
   run: async ({ client, interaction }) => {
     const timeCurrent: Duration = moment.duration(client.uptime);
     const createdDate: Moment = moment(client.user.createdAt);
-    const BotInformation: MessageEmbed = new MessageEmbed()
+    const botInformation = new EmbedBuilder()
       .setColor('#ee6f71')
-      .setThumbnail(`${client.user.displayAvatarURL({ dynamic: true })}`)
+      .setThumbnail(`${client.user.displayAvatarURL({ extension: 'png', forceStatic: false })}`)
       .setTitle('Bot Information')
       .addFields(
         { name: 'Owners', value: authors.join(', '), inline: true },
@@ -38,6 +38,6 @@ export default new Command({
             'https://discord.com/oauth2/authorize?client_id=986815196376989756&permissions=8&scope=applications.commands%20bot',
         } // Mettre un link raccourcis comme https://neutronbot.jsp/invite et aussi mettre le lien du site
       );
-    interaction.followUp({ embeds: [BotInformation] });
+    interaction.followUp({ embeds: [botInformation] });
   },
 });

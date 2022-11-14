@@ -1,6 +1,6 @@
 import { Command } from '../../structures/Command';
 import Jikan from 'jikan-node';
-import { MessageEmbed } from 'discord.js';
+import { ApplicationCommandOptionType, EmbedBuilder } from 'discord.js';
 
 type mangaQuery = {
   mal_id: number;
@@ -24,7 +24,7 @@ export default new Command({
   options: [
     {
       name: 'manga_name',
-      type: 'STRING',
+      type: ApplicationCommandOptionType.String,
       description: 'The name of the manga',
       required: true,
     },
@@ -32,7 +32,8 @@ export default new Command({
   run: async ({ interaction }) => {
     const JIKAN: any = new Jikan();
 
-    const query = interaction.options.getString('manga_name');
+    const query = interaction.options.data;
+    //const query = interaction.options.getString('manga_name');
     if (query.length < 3)
       return interaction.followUp({ content: 'Anime name need to be at least 3 characters', ephemeral: true });
 
@@ -50,7 +51,7 @@ export default new Command({
       mangaQuery.end_date = mangaQuery.end_date.replace('T00:00:00+00:00', '');
     }
 
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setTitle(`**${mangaQuery.title}** (ID: ${mangaQuery.mal_id || '?'})`)
       .setThumbnail(`${mangaQuery.image_url || interaction.member.avatarURL}`)
       .addFields(

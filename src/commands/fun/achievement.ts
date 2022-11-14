@@ -1,4 +1,4 @@
-import { MessageAttachment } from 'discord.js';
+import { ApplicationCommandOptionType, Attachment, AttachmentBuilder } from 'discord.js';
 import { Command } from '../../structures/Command';
 
 export default new Command({
@@ -8,13 +8,13 @@ export default new Command({
     {
       name: 'text',
       description: 'Text on the Achievement (max 24 char)',
-      type: 'STRING',
+      type: ApplicationCommandOptionType.String,
       required: true,
     },
   ],
   run: async ({ interaction }) => {
-    if (!interaction.guild.me.permissions.has('ATTACH_FILES'))
-      return interaction.followUp({ content: `I don't have \`ATTACH_FILES\` permission.`, ephemeral: true });
+    if (!interaction.guild.members.me.permissions.has('AttachFiles'))
+      return interaction.followUp({ content: `I don't have \`AttachFiles\` permission.`, ephemeral: true });
 
     const achievementIcon: number = Math.floor(Math.random() * 28);
 
@@ -32,7 +32,7 @@ export default new Command({
     const achievementImage: string =
       'https://minecraftskinstealer.com/achievement/' + achievementIcon + '/Achievement unlocked!/' + query;
 
-    var imageAttachment: MessageAttachment = new MessageAttachment(achievementImage, 'minecraft.png');
+    var imageAttachment = new AttachmentBuilder(achievementImage, { name: 'minecraft.png' });
 
     interaction.followUp({
       files: [imageAttachment],

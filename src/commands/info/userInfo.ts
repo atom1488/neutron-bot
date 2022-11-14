@@ -1,5 +1,5 @@
 import { Command } from '../../structures/Command';
-import { GuildMember, MessageEmbed } from 'discord.js';
+import { ApplicationCommandOptionType, GuildMember, EmbedBuilder } from 'discord.js';
 import moment, { Moment } from 'moment';
 export default new Command({
   name: 'userinfo',
@@ -7,7 +7,7 @@ export default new Command({
   options: [
     {
       name: 'target',
-      type: 'USER',
+      type: ApplicationCommandOptionType.User,
       description: 'Show user information',
       required: false,
     },
@@ -18,17 +18,17 @@ export default new Command({
     const TimeFull: Moment = moment(member.user.createdAt);
     const TimeFullAt: Moment = moment(member.joinedAt);
     const profilePicture: string = member.user.displayAvatarURL({
-      dynamic: true,
+      forceStatic: false,
       size: 2048,
-      format: 'png',
+      extension: 'png',
     });
-    const UserEmbed: MessageEmbed = new MessageEmbed()
+    const UserEmbed = new EmbedBuilder()
       .setAuthor({
         name: member.user.username,
         iconURL: member.user.displayAvatarURL({
-          dynamic: true,
+          forceStatic: false,
           size: 2048,
-          format: 'png',
+          extension: 'png',
         }),
       })
       .setColor('#ee6f71')

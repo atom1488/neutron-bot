@@ -1,5 +1,5 @@
 import { Command } from '../../structures/Command';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import moment, { Moment } from 'moment';
 import { client } from '../..';
 
@@ -8,10 +8,10 @@ export default new Command({
   description: 'Replies with server information.',
   run: async ({ interaction }) => {
     try {
-      const TimeUnix: number = Math.round(interaction.guild.createdTimestamp / 1000);
-      const TimeFull: Moment = moment(interaction.guild.createdAt);
+      const timeUnix: number = Math.round(interaction.guild.createdTimestamp / 1000);
+      const timeFull: Moment = moment(interaction.guild.createdAt);
 
-      const ServerInfo: MessageEmbed = new MessageEmbed()
+      const serverInfo = new EmbedBuilder()
         .setColor('#ee6f71')
         .setTitle(`💾 ${interaction.guild.name}`)
         .addFields(
@@ -46,17 +46,17 @@ export default new Command({
           { name: '\u200b', value: '\u200b', inline: true },
           {
             name: 'Created at',
-            value: `${TimeFull.format('dddd, MMMM Do YYYY, h:mm:ss a')} (<t:${TimeUnix}:R>) `,
+            value: `${timeFull.format('dddd, MMMM Do YYYY, h:mm:ss a')} (<t:${timeUnix}:R>) `,
           }
         );
 
       if (interaction.guild.iconURL() != null) {
-        ServerInfo.setThumbnail(
-          `${interaction.guild.iconURL({ dynamic: true, size: 1024 })}` || `${client.user.displayAvatarURL()}`
+        serverInfo.setThumbnail(
+          `${interaction.guild.iconURL({ forceStatic: false, size: 1024 })}` || `${client.user.displayAvatarURL()}`
         );
       }
 
-      interaction.followUp({ embeds: [ServerInfo] });
+      interaction.followUp({ embeds: [serverInfo] });
     } catch (error) {
       console.log(error);
     }

@@ -1,5 +1,5 @@
 import { Command } from '../../structures/Command';
-import { MessageEmbed } from 'discord.js';
+import { ApplicationCommandOptionType, EmbedBuilder } from 'discord.js';
 
 export default new Command({
   name: 'dice',
@@ -7,7 +7,7 @@ export default new Command({
   options: [
     {
       name: 'value',
-      type: 'NUMBER',
+      type: ApplicationCommandOptionType.Number,
       description: 'The maximum value the dice can have',
       required: false,
     },
@@ -17,7 +17,7 @@ export default new Command({
 
     const randomNumber: number = Math.floor(Math.random() * value);
 
-    const diceEmbed: MessageEmbed = new MessageEmbed()
+    const diceEmbed = new EmbedBuilder()
       .setColor('#ee6f71')
       .setTitle('Dice')
       .setDescription(`:game_die: **${randomNumber}**`);

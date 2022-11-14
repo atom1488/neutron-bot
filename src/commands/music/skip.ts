@@ -8,8 +8,8 @@ export default new Command({
     if (!interaction.member.voice.channel)
       return interaction.followUp({ content: 'You need to be in a voice channel.', ephemeral: true });
 
-    if (interaction.guild.me.voice.channel) {
-      if (interaction.guild.me.voice.channelId != interaction.member.voice.channelId)
+    if (interaction.guild.members.me.voice.channel) {
+      if (interaction.guild.members.me.voice.channelId != interaction.member.voice.channelId)
         return interaction.followUp({ content: 'The bot is in an other voice channel', ephemeral: true });
     }
 

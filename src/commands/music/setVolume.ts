@@ -1,4 +1,5 @@
 import { Queue } from 'discord-music-player';
+import { ApplicationCommandOptionType } from 'discord.js';
 import { Command } from '../../structures/Command';
 
 export default new Command({
@@ -8,11 +9,11 @@ export default new Command({
     {
       name: 'value',
       description: 'The volume you want (default: 100)',
-      type: 'NUMBER',
+      type: ApplicationCommandOptionType.Number,
       required: true,
     },
   ],
-  userPermissions: ['PRIORITY_SPEAKER'],
+  userPermissions: ['PrioritySpeaker'],
   run: async ({ interaction, client }) => {
     if (!interaction.member.voice.channel)
       return interaction.followUp({
@@ -20,8 +21,8 @@ export default new Command({
         content: 'You need to be in a voice channel to perform this command.',
       });
 
-    if (interaction.guild.me.voice.channel) {
-      if (interaction.guild.me.voice.channelId != interaction.member.voice.channelId)
+    if (interaction.guild.members.me.voice.channel) {
+      if (interaction.guild.members.me.voice.channelId != interaction.member.voice.channelId)
         return interaction.followUp({ ephemeral: true, content: `The bot is in an other voice channel.` });
     }
 
