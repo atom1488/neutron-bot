@@ -1,9 +1,9 @@
-import { ActionRowBuilder, BaseGuildTextChannel, ButtonBuilder, ButtonInteraction, Message } from 'discord.js';
+import { ActionRowBuilder, BaseGuildTextChannel, ButtonBuilder, ButtonInteraction } from 'discord.js';
 import { Command } from '../../structures/Command';
 
 export default new Command({
   name: 'nuke',
-  description: 'delete the channel and clone it',
+  description: 'Deletes the channel and clones it back',
   userPermissions: ['ManageChannels'],
   run: async ({ interaction }) => {
     if (!interaction.guild.members.me.permissions.has('Administrator'))
@@ -29,20 +29,17 @@ export default new Command({
       if (button.customId === 'nukeYes') {
         button.deferUpdate();
         if (button.user.id !== interaction.user.id) return;
-        const buttonChannel: BaseGuildTextChannel = button.channel as BaseGuildTextChannel;
-        const position: number = buttonChannel.rawPosition;
-        const channelName: string = buttonChannel.name;
-        const newChannel: BaseGuildTextChannel = (await buttonChannel.clone().catch(() => {})) as BaseGuildTextChannel;
+        const buttonChannel = button.channel as BaseGuildTextChannel;
+        const newChannel = (await buttonChannel.clone().catch(() => {})) as BaseGuildTextChannel;
         buttonChannel.delete().catch(() => {});
-
-        newChannel.setPosition(position);
-        newChannel.send({ content: `\`${channelName}\` was nuked by **${interaction.user.username}**` });
+        newChannel.setPosition(buttonChannel.rawPosition);
+        newChannel.send({ content: `\`${buttonChannel.name}\` was nuked by **${interaction.user.username}**` });
       }
 
       if (button.customId === 'nukeNo') {
         button.deferUpdate();
         if (button.user.id !== interaction.user.id) return;
-        const buttonMessage: Message = button.message as Message;
+        const buttonMessage = button.message;
         buttonMessage.delete().catch(() => {});
       }
     });

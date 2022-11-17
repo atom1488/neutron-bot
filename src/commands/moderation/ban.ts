@@ -43,7 +43,7 @@ export default new Command({
       new ButtonBuilder().setCustomId('banYes').setLabel('Yes').setStyle(3),
       new ButtonBuilder().setCustomId('banNo').setLabel('No').setStyle(4)
     );
-    const banInteraction: ExtendedInteraction = interaction;
+    const banInteraction = interaction;
     banInteraction.followUp({
       content: `Are you sure you want to ban ${memberAya.user.tag}?`,
       components: [row as any],

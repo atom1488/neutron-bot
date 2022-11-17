@@ -1,4 +1,20 @@
 {
+  "name": "neutronbot",
+  "version": "1.1.0",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "start:dev": "ts-node-dev src/index.ts",
+    "start:prod": "node dist/index.js",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "web:start": "ts-node web/index.ts"
+  },
+  "authors": [
+    "atomkern"
+  ],
+  "license": "MIT",
+  "description": "Neutron bot the best bot ever !!!",
   "dependencies": {
     "@discordjs/opus": "^0.7.0",
     "axios": "^0.27.2",
@@ -11,6 +27,7 @@
     "express-session": "^1.17.3",
     "glob": "^8.0.3",
     "got": "^11.8.3",
+    "isomorphic-unfetch": "^3.1.0",
     "jikan-node": "^1.2.1",
     "moment": "^2.29.3",
     "mongoose": "^6.4.2",
@@ -18,23 +35,6 @@
     "passport-discord": "^0.1.4",
     "react-icons": "^4.4.0"
   },
-  "name": "neutronbot",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "start": "ts-node src/index.ts",
-    "start:dev": "ts-node-dev src/index.ts",
-    "start:prod": "node dist/index.js",
-    "build": "tsc",
-    "watch": "tsc -w",
-    "web:start": "ts-node web/index.ts"
-  },
-  "authors": [
-    "atomkern",
-    "Sorus"
-  ],
-  "license": "MIT",
-  "description": "Neutron bot the best bot ever !!!",
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
