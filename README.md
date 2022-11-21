@@ -1,6 +1,6 @@
 # neutron-bot
 
-Bot Discord fait avec discord.js v13 et TypeScript avec un dashboard.
+Bot Discord fait avec discord.js v14 et TypeScript avec un dashboard (outdated).
 
 Liste des catégories du bot:
 
